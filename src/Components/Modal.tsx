@@ -3,6 +3,7 @@ import React, { PropsWithChildren, useEffect, useRef } from 'react';
 import { useSwitch } from '../customHooks/useSwitch';
 import { Portal } from './Portal';
 import { Prompt } from './Prompt';
+import { useModalStyles } from './styles/useModalStyles';
 
 interface ModalProps {
   title?: string;
@@ -12,6 +13,7 @@ interface ModalProps {
 }
 
 export const Modal = ({ title, open, handleClose, children, className }: PropsWithChildren<ModalProps>) => {
+  const { body, title: titleStyle, head, closeBtn } = useModalStyles();
   const { open: isPromptOpen, handleClose: handleClosePrompt, handleOpen: handleOpenPrompt } = useSwitch(false);
 
   const ref = useRef<HTMLDivElement>(null);
@@ -46,12 +48,13 @@ export const Modal = ({ title, open, handleClose, children, className }: PropsWi
     <React.Fragment>
       {open && (
         <Portal className={className}>
-          <div ref={ref}>
-            <div>
-              <span>{title}</span>
+          <div className={body} ref={ref}>
+            <div className={head}>
+              <span className={titleStyle}>{title}</span>
               <svg
                 role="button"
                 onClick={handleOpenPrompt}
+                className={closeBtn}
                 focusable="false"
                 aria-hidden="true"
                 viewBox="0 0 24 24"
