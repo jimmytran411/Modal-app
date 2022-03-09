@@ -16,7 +16,8 @@ describe('<Modal />', () => {
     const title = screen.getByText(/test title/i);
     expect(children).toBeInTheDocument();
     expect(title).toBeInTheDocument();
-    userEvent.click(screen.getByRole('button', { name: /x/i }));
+    userEvent.click(screen.getByTestId(/close-btn/i));
+    userEvent.click(screen.getByRole('button', { name: /yes/i }));
     expect(handleClose).toBeCalledTimes(1);
 
     rerender(
