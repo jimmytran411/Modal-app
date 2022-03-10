@@ -56,4 +56,9 @@ export const useDraftFormStyles = createUseStyles({
       opacity: 0.8,
     },
   },
+
+  error: {
+    color: '#f70000',
+    fontWeight: '600',
+  },
 });

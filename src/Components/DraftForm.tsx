@@ -5,10 +5,9 @@ interface DraftFormProps {
   formSubmit: (fields: DraftFormInputs) => void;
 }
 
-interface DraftFormInputs {
+export interface DraftFormInputs {
   title: string;
   description: string;
-  option: string;
 }
 
 export const DraftForm = ({ formSubmit }: DraftFormProps) => {
@@ -18,7 +17,7 @@ export const DraftForm = ({ formSubmit }: DraftFormProps) => {
     formState: { errors },
   } = useForm<DraftFormInputs>();
 
-  const { form, label, input, title, description, divider, footer, submitBtn } = useDraftFormStyles();
+  const { form, label, input, title, description, error, divider, footer, submitBtn } = useDraftFormStyles();
 
   return (
     <form className={form} onSubmit={handleSubmit((data) => formSubmit(data))}>
@@ -33,7 +32,11 @@ export const DraftForm = ({ formSubmit }: DraftFormProps) => {
           required: 'Title is required',
         })}
       />
-      {errors.title && <span role="alert">{errors.title.message}</span>}
+      {errors.title && (
+        <span role="alert" className={error}>
+          {errors.title.message}
+        </span>
+      )}
 
       <label className={label} htmlFor="description">
         description
@@ -46,7 +49,11 @@ export const DraftForm = ({ formSubmit }: DraftFormProps) => {
           required: 'Description is required',
         })}
       />
-      {errors.description && <span role="alert">{errors.description.message}</span>}
+      {errors.description && (
+        <span role="alert" className={error}>
+          {errors.description.message}
+        </span>
+      )}
 
       <hr className={divider} />
 
