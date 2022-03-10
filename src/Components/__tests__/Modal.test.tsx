@@ -14,10 +14,13 @@ describe('<Modal />', () => {
 
     const children = screen.getByText(/foo/i);
     const title = screen.getByText(/test title/i);
-    expect(children).toBeInTheDocument();
-    expect(title).toBeInTheDocument();
+
     userEvent.click(screen.getByTestId(/close-btn/i));
+
+    const propmtMessage = screen.getByText(/Are you sure you want to quit this operation?/i);
+    // Confirm yes when prompt open
     userEvent.click(screen.getByRole('button', { name: /yes/i }));
+    expect(propmtMessage).not.toBeInTheDocument();
     expect(handleClose).toBeCalledTimes(1);
 
     rerender(
