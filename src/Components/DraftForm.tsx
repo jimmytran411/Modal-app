@@ -1,5 +1,5 @@
-import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useDraftFormStyles } from './styles/useDraftFormStyles';
 
 interface DraftFormProps {
   formSubmit: (fields: DraftFormInputs) => void;
@@ -18,33 +18,44 @@ export const DraftForm = ({ formSubmit }: DraftFormProps) => {
     formState: { errors },
   } = useForm<DraftFormInputs>();
 
+  const { form, label, input, title, description, divider, footer, submitBtn } = useDraftFormStyles();
+
   return (
-    <form onSubmit={handleSubmit((data) => formSubmit(data))}>
-      <label htmlFor="title">title</label>
+    <form className={form} onSubmit={handleSubmit((data) => formSubmit(data))}>
+      <label className={label} htmlFor="title">
+        title
+      </label>
       <input
+        className={`${input} ${title}`}
         id="title"
+        placeholder="Title..."
         {...register('title', {
           required: 'Title is required',
         })}
       />
       {errors.title && <span role="alert">{errors.title.message}</span>}
 
-      <label htmlFor="description">description</label>
-      <input
+      <label className={label} htmlFor="description">
+        description
+      </label>
+      <textarea
+        className={`${input} ${description}`}
+        placeholder="Description..."
         id="description"
         {...register('description', {
           required: 'Description is required',
         })}
-        type="description"
       />
       {errors.description && <span role="alert">{errors.description.message}</span>}
 
-      <select data-testid="draft-form-option" {...register('option')}>
-        <option value="option 1">option 1</option>
-        <option value="option 2">option 2</option>
-        <option value="option 3">option 3</option>
-      </select>
-      <button type="submit">Submit</button>
+      <hr className={divider} />
+
+      <div className={footer}>
+        <div />
+        <button className={submitBtn} type="submit">
+          Submit
+        </button>
+      </div>
     </form>
   );
 };

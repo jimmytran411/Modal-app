@@ -12,9 +12,6 @@ it('User should be able to type in title, description, select option and submit 
   const description = screen.getByLabelText(/description/i);
   userEvent.type(description, 'test description');
 
-  const option = screen.getByTestId(/draft-form-option/i);
-  userEvent.selectOptions(option, 'option 1');
-
   const submitBtn = screen.getByRole('button', { name: /submit/i });
   userEvent.click(submitBtn);
 
@@ -22,7 +19,6 @@ it('User should be able to type in title, description, select option and submit 
     expect(handleSubmit).toHaveBeenCalledTimes(1);
     expect(handleSubmit).toHaveBeenCalledWith({
       description: 'test description',
-      option: 'option 1',
       title: 'test title',
     });
   });
