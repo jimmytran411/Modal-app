@@ -5,7 +5,7 @@ export const useModalStyles = createUseStyles({
     minWidth: 750,
     minHeight: 300,
     backgroundColor: '#fff',
-    padding: 18,
+    padding: '18px 18px 18px 32px',
     borderRadius: 4,
     display: 'flex',
     justifyContent: 'space-between',
